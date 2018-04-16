@@ -15,7 +15,7 @@
  */
 package com.plugtree.solrmeter.model;
 
-import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
 import com.plugtree.solrmeter.model.exception.QueryException;
@@ -30,7 +30,7 @@ public interface QueryExecutor {
 	 * 
 	 * @return The current Solr Server. If there is no current Solr Server, then the method returns a new one.
 	 */
-	SolrServer getSolrServer();
+	HttpSolrClient getSolrServer();
 
 	/**
 	 * To be executed when a Query succeeds. 

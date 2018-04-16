@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package com.plugtree.solrmeter.model.operation;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -58,7 +59,7 @@ public class QueryOperation implements Operation {
         throw new RuntimeException("The query returned less than 0 as q time: " + response.getResponseHeader().get("q") + response.getQTime());
       }
       executor.notifyQueryExecuted(response, clientTime);
-    } catch (SolrServerException e) {
+    } catch (SolrServerException | IOException e) {
       logger.error("Error on Query " + query);
       e.printStackTrace();
       executor.notifyError(new QueryException(e, query));
@@ -67,7 +68,7 @@ public class QueryOperation implements Operation {
     return true;
   }
   
-  protected QueryResponse executeQuery(SolrQuery query) throws SolrServerException {
+  protected QueryResponse executeQuery(SolrQuery query) throws SolrServerException, IOException {
 	String requestMethod = SolrMeterConfiguration.getProperty(SolrMeterConfiguration.QUERY_METHOD, "GET");
 	return executor.getSolrServer().query(query, METHOD.valueOf(requestMethod));
   }

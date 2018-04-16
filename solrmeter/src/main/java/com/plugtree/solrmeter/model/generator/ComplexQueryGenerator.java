@@ -105,7 +105,7 @@ public class ComplexQueryGenerator implements QueryGenerator {
     SolrQuery query;
     query = new SolrQuery();
     query.setQuery(queryExtractor.getRandomQuery());
-    query.setQueryType(queryType);
+    query.setRequestHandler(queryType);
     this.addExtraParameters(query);
     query.setIncludeScore(true);
     

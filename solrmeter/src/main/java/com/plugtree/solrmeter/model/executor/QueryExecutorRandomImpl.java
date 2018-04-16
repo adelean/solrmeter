@@ -18,7 +18,7 @@ package com.plugtree.solrmeter.model.executor;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
 import com.google.inject.Inject;
@@ -46,7 +46,7 @@ public class QueryExecutorRandomImpl extends AbstractRandomExecutor implements Q
 	 * Solr Server for strings
 	 * TODO implement provider
 	 */
-	private SolrServer server;
+	private HttpSolrClient server;
 	
 	/**
 	 * List of Statistics observing this Executor.
@@ -93,7 +93,7 @@ public class QueryExecutorRandomImpl extends AbstractRandomExecutor implements Q
 	}
 
 	@Override
-	public synchronized SolrServer getSolrServer() {
+	public synchronized HttpSolrClient getSolrServer() {
 		if(server == null) {
 			server = super.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_SEARCH_URL));
 		}

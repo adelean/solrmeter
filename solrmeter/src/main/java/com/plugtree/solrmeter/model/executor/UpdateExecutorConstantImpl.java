@@ -19,7 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.solr.client.solrj.SolrServer;
+
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 
 import com.google.inject.Inject;
@@ -48,7 +49,7 @@ public class UpdateExecutorConstantImpl implements UpdateExecutor {
 	private final static Logger logger = Logger.getLogger(UpdateExecutorConstantImpl.class);
 
 	//TODO DI
-	private SolrServer server;
+	private HttpSolrClient server;
 	
 	private Integer numberOfDocumentsBeforeCommit;
 	
@@ -81,7 +82,7 @@ public class UpdateExecutorConstantImpl implements UpdateExecutor {
 		numberOfDocumentsBeforeCommit = Integer.valueOf(SolrMeterConfiguration.getProperty("solr.update.documentsToCommit", "100"));
 	}
 	
-	public synchronized SolrServer getSolrServer() {
+	public synchronized HttpSolrClient getSolrServer() {
 		if(server == null) {
 			server = SolrServerRegistry.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_ADD_URL));
 		}

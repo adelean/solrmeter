@@ -10,4 +10,5 @@ histogram.csv
 queryTime.csv
 solrmeter.log
 solrmeter/solrmeter.log
-
+.idea/
+*.iml

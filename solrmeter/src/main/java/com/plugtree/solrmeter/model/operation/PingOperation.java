@@ -2,8 +2,8 @@ package com.plugtree.solrmeter.model.operation;
 
 import java.io.IOException;
 
-import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.SolrPingResponse;
 import org.apache.solr.common.SolrException;
 
@@ -16,9 +16,9 @@ import com.plugtree.solrmeter.model.exception.PingNotConfiguredException;
  */
 public class PingOperation implements Operation {
 	
-	private final SolrServer server;
+	private final HttpSolrClient server;
 	
-	public PingOperation(SolrServer server) {
+	public PingOperation(HttpSolrClient server) {
 		this.server = server;
 	}
 
@@ -29,9 +29,7 @@ public class PingOperation implements Operation {
 			if(response.getStatus() == 0) {
 				return true;
 			}
-		} catch (SolrServerException e) {
-			return false;
-		} catch (IOException e) {
+		} catch (SolrServerException | IOException e) {
 			return false;
 		} catch (SolrException e) {
 			if(e.getMessage().startsWith("pingQuery_not_configured")) {

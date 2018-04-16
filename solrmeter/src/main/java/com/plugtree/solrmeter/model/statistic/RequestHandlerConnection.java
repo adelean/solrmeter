@@ -27,10 +27,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrRequest;
 import org.apache.solr.client.solrj.SolrResponse;
-import org.apache.solr.client.solrj.SolrServer;
+
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.SolrPingResponse;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.apache.solr.common.params.SolrParams;
@@ -56,7 +58,7 @@ public class RequestHandlerConnection extends AbstractStatisticConnection {
 
 	private static final List<String> collections;
 	
-	private Map<String, SolrServer> solrServer;
+	private Map<String, HttpSolrClient> solrServer;
 	
 	static {
 		List<String> _collections = new ArrayList<>();
@@ -67,7 +69,7 @@ public class RequestHandlerConnection extends AbstractStatisticConnection {
 	@Inject
 	public RequestHandlerConnection() {
 		this(
-			new HashMap<String, SolrServer>() {{
+			new HashMap<String, HttpSolrClient>() {{
 				collections.forEach(collectionName -> {
 				put(collectionName, 
 						SolrServerRegistry.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_SEARCH_URL) 
@@ -77,7 +79,7 @@ public class RequestHandlerConnection extends AbstractStatisticConnection {
 		);
 	}
 	
-	public RequestHandlerConnection(Map<String, SolrServer> solrServer) {
+	public RequestHandlerConnection(Map<String, HttpSolrClient> solrServer) {
 		super();
 		this.solrServer = solrServer;
 	}
@@ -160,8 +162,7 @@ public class RequestHandlerConnection extends AbstractStatisticConnection {
 			params.set("stats", "true");
 		}
 
-		@Override
-		public SolrResponse process(SolrServer server) throws SolrServerException,
+		public SolrResponse process(HttpSolrClient server) throws SolrServerException,
 				IOException {
 			long startTime = System.currentTimeMillis();
 		    SolrPingResponse res = new SolrPingResponse();
@@ -177,6 +178,11 @@ public class RequestHandlerConnection extends AbstractStatisticConnection {
 		
 		@Override
 		public Collection<ContentStream> getContentStreams() throws IOException {
+			return null;
+		}
+
+		@Override
+		protected SolrResponse createResponse(SolrClient client) {
 			return null;
 		}
 	}

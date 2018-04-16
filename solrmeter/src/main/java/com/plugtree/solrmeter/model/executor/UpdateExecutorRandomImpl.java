@@ -18,7 +18,8 @@ package com.plugtree.solrmeter.model.executor;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.solr.client.solrj.SolrServer;
+
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 
 import com.google.inject.Inject;
@@ -46,7 +47,7 @@ import com.plugtree.stressTestScope.StressTestScope;
 public class UpdateExecutorRandomImpl extends AbstractRandomExecutor implements UpdateExecutor {
 	
 	//TODO DI
-	private SolrServer server;
+	private HttpSolrClient server;
 	
 	private Integer numberOfDocumentsBeforeCommit;
 	
@@ -76,10 +77,10 @@ public class UpdateExecutorRandomImpl extends AbstractRandomExecutor implements 
 
 	public UpdateExecutorRandomImpl() {
 		super();
-		statistics = new LinkedList<UpdateStatistic>();
+		statistics = new LinkedList<>();
 	}
 	
-	public synchronized SolrServer getSolrServer() {
+	public synchronized HttpSolrClient getSolrServer() {
 		if(server == null) {
 			server = super.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_ADD_URL));
 		}

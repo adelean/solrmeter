@@ -23,13 +23,14 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrRequest;
-import org.apache.solr.client.solrj.SolrServer;
+
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.util.NamedList;
 
-public class SolrServerMock extends SolrServer {
+public class SolrServerMock extends HttpSolrClient {
 	
 	private static final long serialVersionUID = 7266180569831920295L;
 
@@ -42,9 +43,9 @@ public class SolrServerMock extends SolrServer {
 	private Map<String, NamedList<Object>> requestsResponses;
 	
 	public SolrServerMock() {
-		super();
-		addedDocuments = new LinkedList<SolrInputDocument>();
-		requestsResponses = new HashMap<String, NamedList<Object>>();
+		super("http://localhost");
+		addedDocuments = new LinkedList<>();
+		requestsResponses = new HashMap<>();
 	}
 	
 	@Override
@@ -64,11 +65,10 @@ public class SolrServerMock extends SolrServer {
 	}
 
 	@Override
-	public NamedList<Object> request(SolrRequest arg0)
-			throws SolrServerException, IOException {
-		return requestsResponses.get(arg0.getPath());
+	public NamedList<Object> request(SolrRequest request, String collection) throws SolrServerException, IOException {
+		return requestsResponses.get(request.getPath());
 	}
-	
+
 	@Override
 	public UpdateResponse optimize() throws SolrServerException, IOException {
 		numberOfOptimize++;

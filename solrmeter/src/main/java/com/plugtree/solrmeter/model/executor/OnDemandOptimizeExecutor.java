@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.solr.client.solrj.SolrServer;
+
 
 import com.plugtree.solrmeter.model.OptimizeExecutor;
 import com.plugtree.solrmeter.model.OptimizeStatistic;
@@ -27,6 +27,8 @@ import com.plugtree.solrmeter.model.SolrMeterConfiguration;
 import com.plugtree.solrmeter.model.SolrServerRegistry;
 import com.plugtree.solrmeter.model.exception.OptimizeException;
 import com.plugtree.stressTestScope.StressTestScope;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+
 /**
  * Executes an optimize only when the "execute" method is invoked
  * @author tflobbe
@@ -40,7 +42,7 @@ public class OnDemandOptimizeExecutor implements OptimizeExecutor {
 	/**
 	 * The Solr Server were the optimize is going to run.
 	 */
-	protected SolrServer server = null;
+	protected HttpSolrClient server = null;
 	
 	/**
 	 * Indicates whether the index is being optimized or not at this time
@@ -56,7 +58,7 @@ public class OnDemandOptimizeExecutor implements OptimizeExecutor {
 		this(SolrServerRegistry.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_ADD_URL)));
 	}
 	
-	public OnDemandOptimizeExecutor(SolrServer server) {
+	public OnDemandOptimizeExecutor(HttpSolrClient server) {
 		super();
 		optimizeObservers = new LinkedList<OptimizeStatistic>();
 		this.server = server;

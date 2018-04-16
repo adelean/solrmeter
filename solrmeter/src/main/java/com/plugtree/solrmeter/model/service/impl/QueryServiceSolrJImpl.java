@@ -15,13 +15,15 @@
  */
 package com.plugtree.solrmeter.model.service.impl;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.ORDER;
-import org.apache.solr.client.solrj.SolrServer;
+
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
 import com.google.inject.Singleton;
@@ -42,12 +44,12 @@ public class QueryServiceSolrJImpl implements QueryService {
 	public QueryResponse executeQuery(String q, String fq, String qt,
 			boolean highlight, String facetFields, String sort, String sortOrder, Integer rows, Integer start, 
 			String otherParams) throws QueryException {
-		SolrServer server = SolrServerRegistry.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_SEARCH_URL));
+		HttpSolrClient server = SolrServerRegistry.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_SEARCH_URL));
 		SolrQuery query = this.createQuery(q, fq, qt, highlight, facetFields, sort, sortOrder, rows, start, otherParams);
 		QueryResponse response = null;
 		try {
 			response = server.query(query);
-		} catch (SolrServerException e) {
+		} catch (SolrServerException | IOException e) {
 			throw new QueryException(e);
 		}
 		return response;
@@ -67,7 +69,7 @@ public class QueryServiceSolrJImpl implements QueryService {
 			}
 		}
 		if(qt != null) {
-			query.setQueryType(qt);
+			query.setRequestHandler(qt);
 		}
 		query.setHighlight(highlight);
 		if(facetFields == null || "".equals(facetFields)) {
@@ -80,7 +82,7 @@ public class QueryServiceSolrJImpl implements QueryService {
 			}
 		}
 		if(sort != null && !"".equals(sort)) {
-			query.setSortField(sort, ORDER.valueOf(sortOrder));
+			query.setSort(sort, ORDER.valueOf(sortOrder));
 		}
 		if(rows != null && rows < 0) {
 			throw new QueryException("Rows can't be less than 0");
