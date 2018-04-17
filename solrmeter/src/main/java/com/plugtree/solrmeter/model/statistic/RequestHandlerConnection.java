@@ -58,7 +58,7 @@ public class RequestHandlerConnection extends AbstractStatisticConnection {
 
 	private static final List<String> collections;
 	
-	private Map<String, HttpSolrClient> solrServer;
+	private Map<String, SolrClient> solrServer;
 	
 	static {
 		List<String> _collections = new ArrayList<>();
@@ -69,7 +69,7 @@ public class RequestHandlerConnection extends AbstractStatisticConnection {
 	@Inject
 	public RequestHandlerConnection() {
 		this(
-			new HashMap<String, HttpSolrClient>() {{
+			new HashMap<String, SolrClient>() {{
 				collections.forEach(collectionName -> {
 				put(collectionName, 
 						SolrServerRegistry.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_SEARCH_URL) 
@@ -79,7 +79,7 @@ public class RequestHandlerConnection extends AbstractStatisticConnection {
 		);
 	}
 	
-	public RequestHandlerConnection(Map<String, HttpSolrClient> solrServer) {
+	public RequestHandlerConnection(Map<String, SolrClient> solrServer) {
 		super();
 		this.solrServer = solrServer;
 	}

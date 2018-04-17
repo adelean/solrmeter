@@ -120,7 +120,7 @@ public abstract class BaseTestCase extends TestCase {
 			try {
 				Thread.sleep(wakeUp - now);
 			} catch(InterruptedException ex) {
-				
+				logger.error(ex.getClass().getSimpleName(), ex);
 			}
 			now = System.currentTimeMillis();
 		}

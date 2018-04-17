@@ -2,7 +2,6 @@ package com.plugtree.solrmeter.runMode;
 
 import com.google.inject.Injector;
 import com.plugtree.solrmeter.SolrMeterMain;
-import com.plugtree.solrmeter.view.ConsoleFrame;
 import com.plugtree.stressTestScope.StressTestRegistry;
 import com.plugtree.solrmeter.view.*;
 import com.plugtree.solrmeter.model.*;

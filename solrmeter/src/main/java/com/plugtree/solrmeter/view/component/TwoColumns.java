@@ -18,10 +18,10 @@ package com.plugtree.solrmeter.view.component;
 
 public interface TwoColumns {
 	
-	public static final int GAP = 10;
+	int GAP = 10;
 	
-	public int getFirstColumnWidth();
+	int getFirstColumnWidth();
 	
-	public void setFirstColumnWidth(int width);
+	void setFirstColumnWidth(int width);
 
 }

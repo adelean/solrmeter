@@ -40,7 +40,7 @@ public class ScopeCastorFieldHandler extends AbstractCastorFieldHandler {
 		if(value == null || value.isEmpty()) {
 			return;
 		}
-		((StatisticDescriptor)object).setScope(StatisticScope.valueOf(value.replaceAll("-", "_").toUpperCase()));
+		object.setScope(StatisticScope.valueOf(value.replaceAll("-", "_").toUpperCase()));
 	}
 
 }

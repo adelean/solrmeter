@@ -5,7 +5,7 @@ import com.plugtree.solrmeter.view.ConsoleFrame;
 
 public interface SolrMeterRunMode {
 
-    public void main(Injector injector);
-    public void restartApplication();
-    public ConsoleFrame getMainFrame();
+    void main(Injector injector);
+    void restartApplication();
+    ConsoleFrame getMainFrame();
 }

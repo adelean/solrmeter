@@ -25,17 +25,17 @@ public interface OptimizeExecutor {
 	/**
 	 * Asynchonize index optimization
 	 */
-	public void execute();
+    void execute();
 
 	/**
 	 * Add a Statistic to observ this executor
 	 * @param observer
 	 */
-	public void addStatistic(OptimizeStatistic observer);
+    void addStatistic(OptimizeStatistic observer);
 
 	/**
 	 * Indicates whether the index is being optimized or not at this time
 	 */
-	public boolean isOptimizing();
+    boolean isOptimizing();
 
 }

@@ -16,7 +16,7 @@
 package com.plugtree.solrmeter.mock;
 
 
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 
@@ -27,7 +27,7 @@ public class UpdateExecutorMock extends UpdateExecutorRandomImpl {
 	
 	private SolrServerMock server;
 	
-	public synchronized HttpSolrClient getSolrServer() {
+	public synchronized SolrClient getSolrServer() {
 		if(server == null) {
 			server = new SolrServerMock();
 		}

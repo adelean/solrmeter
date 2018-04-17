@@ -63,7 +63,10 @@ public class SolrMeterConfiguration {
 	private static Logger logger = LoggerFactory.getLogger(SolrMeterConfiguration.class);
 	private static String FILE_CONFIG_NAME = "solrmeter.properties";
 	private static Properties prop = new Properties();
-	private static Map<String, String> transientProperties = new HashMap<String, String>();
+	private static Map<String, String> transientProperties = new HashMap<>();
+
+	public static final String USE_SOLR_CLOUD = "solr.server.configuration.useCloud";
+	public static final String SOLR_CLOUD_COLLECTION = "solr.server.configuration.cloud.collection";
 
 	static {
 		loadConfiguration();

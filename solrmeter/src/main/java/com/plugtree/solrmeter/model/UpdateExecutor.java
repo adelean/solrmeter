@@ -16,7 +16,7 @@
 package com.plugtree.solrmeter.model;
 
 
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 
 import com.plugtree.solrmeter.model.exception.CommitException;
@@ -32,103 +32,103 @@ public interface UpdateExecutor {
 	 * 
 	 * @return The current Solr Server. If there is no current Solr Server, then the method returns a new one.
 	 */
-	public HttpSolrClient getSolrServer();
+    SolrClient getSolrServer();
 
 	/**
 	 * Starts this executor
 	 */
-	public void start();
+    void start();
 
 	/**
 	 * Stops this executor.
 	 */
-	public void stop();
+    void stop();
 
 	/**
 	 * To be executed when an Update succeeds. 
 	 * @param response
 	 */
-	public void notifyAddedDocument(UpdateResponse response);
+    void notifyAddedDocument(UpdateResponse response);
 
 	/**
 	 * To be executed when a Commit succeeds. 
 	 * @param response
 	 */
-	public void notifyCommitSuccessfull(UpdateResponse response);
+    void notifyCommitSuccessfull(UpdateResponse response);
 
 	/**
 	 * To be executed when an error ocurrs when committing.
 	 * @param exception
 	 */
-	public void notifyCommitError(CommitException exception);
+    void notifyCommitError(CommitException exception);
 
 	/**
 	 * To be executed when an error ocurrs when updating.
 	 * @param updateException
 	 */
-	public void notifyUpdateError(UpdateException updateException);
+    void notifyUpdateError(UpdateException updateException);
 
 	/**
 	 * Adds a Statistic Observer to the executor
 	 * @param statistic
 	 */
-	public void addStatistic(UpdateStatistic statistic);
+    void addStatistic(UpdateStatistic statistic);
 
 	/**
 	 * @return The number of added documents that hasn't been committed by solrmeter.
 	 * (if a commit is performed outside solrmeter, this counter wont notice)
 	 */
-	public int getNotCommitedDocuments();
+    int getNotCommitedDocuments();
 
 	/**
      * Set the number of documents that has to be added before a commit is performed
      * by solrmeter. This number is useless when solrmeter doesn't perform commits.
      */
-	public void setNumberOfDocumentsBeforeCommit(int value);
+    void setNumberOfDocumentsBeforeCommit(int value);
 
 	/**
 	 * 
 	 * @return The number of documents that has to be added before a commit is performed by
 	 * solrmeter.
 	 */
-	public Integer getNumberOfDocumentsBeforeCommit();
+    Integer getNumberOfDocumentsBeforeCommit();
 
 	/**
 	 * Sets the time interval between commits executed by solrmeter. This number is useless
 	 * when solrmeter doesn't perform commits.
 	 * @param value
 	 */
-	public void setMaxTimeBeforeCommit(Integer value);
+    void setMaxTimeBeforeCommit(Integer value);
 
 	/**
 	 * 
 	 * @return The time interval between commits executed by solrmeter.
 	 */
-	public Integer getMaxTimeBeforeCommit();
+    Integer getMaxTimeBeforeCommit();
 
 	/**
 	 * If autocommit is set to true, this means that Solr is performing autocommit, and solrmeter
 	 * doesn't have to. WHEN SET TO TRUE, SOLRMETER WONT PERFORM COMMITS.
 	 * @return
 	 */
-	public boolean isAutocommit();
+    boolean isAutocommit();
 
 	/**
 	 * 
 	 * @return The number of update operations that has to be executed per minute
 	 */
-	public Integer getUpdatesPerMinute();
+    Integer getUpdatesPerMinute();
 
 	/**
 	 * 
 	 * @return true if the executor is currently running.
 	 * 			false if the executor is not currently running.
 	 */
-	public boolean isRunning();
+    boolean isRunning();
 
 	/**
      * Set the number of updates that has to be executed in a minute.
      */
-    public void setOperationsPerSecond(int value);
+    void setOperationsPerSecond(int value);
 
 }

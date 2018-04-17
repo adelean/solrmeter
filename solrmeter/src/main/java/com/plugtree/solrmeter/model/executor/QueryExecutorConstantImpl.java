@@ -18,7 +18,8 @@ package com.plugtree.solrmeter.model.executor;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.impl.CloudSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
 import com.google.inject.Inject;
@@ -47,7 +48,7 @@ public class QueryExecutorConstantImpl implements QueryExecutor{
 	/**
 	 * Solr Server for strings
 	 */
-	private HttpSolrClient server;
+	private SolrClient server;
 	
 	/**
 	 * List of Statistics observing this Executor.
@@ -85,10 +86,13 @@ public class QueryExecutorConstantImpl implements QueryExecutor{
 	}
 
 	@Override
-	public synchronized HttpSolrClient getSolrServer() {
+	public synchronized SolrClient getSolrServer() {
 		if(server == null) {
 			server = SolrServerRegistry.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_SEARCH_URL));
+			if (server instanceof CloudSolrClient)
+				((CloudSolrClient) server).connect();
 		}
+
 		return server;
 	}
 	

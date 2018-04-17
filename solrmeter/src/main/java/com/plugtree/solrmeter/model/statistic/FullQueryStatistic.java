@@ -137,7 +137,7 @@ public class FullQueryStatistic implements QueryStatistic {
 		double sumation = 0;
 		synchronized (sortedQueryTimes) {
 			for(Integer value:sortedQueryTimes) {
-				sumation+= Math.pow((double)(value - average), 2.0);
+				sumation+= Math.pow(value - average, 2.0);
 			}
 			return sumation / sortedQueryTimes.size();
 		}

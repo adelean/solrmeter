@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 
 import com.google.inject.Inject;
@@ -49,7 +49,7 @@ public class UpdateExecutorConstantImpl implements UpdateExecutor {
 	private final static Logger logger = Logger.getLogger(UpdateExecutorConstantImpl.class);
 
 	//TODO DI
-	private HttpSolrClient server;
+	private SolrClient server;
 	
 	private Integer numberOfDocumentsBeforeCommit;
 	
@@ -77,12 +77,12 @@ public class UpdateExecutorConstantImpl implements UpdateExecutor {
 		this.documentExtractor = documentExtractor;
 		statistics = new LinkedList<UpdateStatistic>();
 		operationsPerMinute = Integer.valueOf(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.UPDATES_PER_SECOND)).intValue();
-		autocommit = Boolean.valueOf(SolrMeterConfiguration.getProperty("solr.update.solrAutocommit", "false"));;
-		maxTimeBeforeCommit = Integer.valueOf(SolrMeterConfiguration.getProperty("solr.update.timeToCommit", "10000"));
+		autocommit = Boolean.valueOf(SolrMeterConfiguration.getProperty("solr.update.solrAutocommit", "false"));
+        maxTimeBeforeCommit = Integer.valueOf(SolrMeterConfiguration.getProperty("solr.update.timeToCommit", "10000"));
 		numberOfDocumentsBeforeCommit = Integer.valueOf(SolrMeterConfiguration.getProperty("solr.update.documentsToCommit", "100"));
 	}
 	
-	public synchronized HttpSolrClient getSolrServer() {
+	public synchronized SolrClient getSolrServer() {
 		if(server == null) {
 			server = SolrServerRegistry.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_ADD_URL));
 		}

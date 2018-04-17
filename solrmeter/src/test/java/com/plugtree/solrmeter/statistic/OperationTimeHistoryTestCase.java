@@ -44,16 +44,16 @@ public class OperationTimeHistoryTestCase extends BaseTestCase {
 		
 		statistic.onExecutedQuery(this.createQueryResponse(100), 0);
 		assertEquals(1, statistic.getQueriesTime().size());
-		assertEquals(Long.valueOf(100), (Long)statistic.getQueriesTime().get(100L));
+		assertEquals(Long.valueOf(100), statistic.getQueriesTime().get(100L));
 		statistic.onExecutedQuery(this.createQueryResponse(200), 0);
 		assertEquals(1, statistic.getQueriesTime().size());
-		assertEquals(Long.valueOf(150), (Long)statistic.getQueriesTime().get(100L));
+		assertEquals(Long.valueOf(150), statistic.getQueriesTime().get(100L));
 		statistic.onExecutedQuery(this.createQueryResponse(300), 0);
 		assertEquals(1, statistic.getQueriesTime().size());
-		assertEquals(Long.valueOf(200), (Long)statistic.getQueriesTime().get(100L));
+		assertEquals(Long.valueOf(200), statistic.getQueriesTime().get(100L));
 		statistic.onExecutedQuery(this.createQueryResponse(600), 0);
 		assertEquals(1, statistic.getQueriesTime().size());
-		assertEquals(Long.valueOf(300), (Long)statistic.getQueriesTime().get(100L));
+		assertEquals(Long.valueOf(300), statistic.getQueriesTime().get(100L));
 	}
 	
 	

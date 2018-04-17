@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.common.util.NamedList;
 
 import com.plugtree.solrmeter.BaseTestCase;
@@ -17,8 +17,8 @@ public class RequestHandlerConnectionTestCase extends BaseTestCase {
 	private static String dummyCollection = "SINGLE_COLLECTION";
 	
 	public void testConnectionData() throws MalformedURLException, StatisticConnectionException {
-		HttpSolrClient solrServer= this.createMockSolrServer();
-		Map<String, HttpSolrClient> serverMap = new HashMap<>();
+		SolrClient solrServer= this.createMockSolrServer();
+		Map<String, SolrClient> serverMap = new HashMap<>();
 		serverMap.put(dummyCollection, solrServer);
 		RequestHandlerConnection connection = new RequestHandlerConnection(serverMap);
 		Map<String, CacheData> data = connection.getData().get(dummyCollection);
@@ -32,8 +32,8 @@ public class RequestHandlerConnectionTestCase extends BaseTestCase {
 	}
 	
 	public void testAllCachesPresent() throws MalformedURLException, StatisticConnectionException {
-		HttpSolrClient solrServer = this.createMockSolrServer();
-		Map<String, HttpSolrClient> serverMap = new HashMap<>();
+		SolrClient solrServer = this.createMockSolrServer();
+		Map<String, SolrClient> serverMap = new HashMap<>();
 		serverMap.put(dummyCollection, solrServer);
 		RequestHandlerConnection connection = new RequestHandlerConnection(serverMap);
 		Map<String, CacheData> data = connection.getData().get(dummyCollection);
@@ -57,8 +57,8 @@ public class RequestHandlerConnectionTestCase extends BaseTestCase {
 	 *	<long name="cumulative_evictions">0</long>
 	 */
 	public void testCumulativeData() throws MalformedURLException, StatisticConnectionException {
-		HttpSolrClient solrServer = this.createMockSolrServer();
-		Map<String, HttpSolrClient> serverMap = new HashMap<>();
+		SolrClient solrServer = this.createMockSolrServer();
+		Map<String, SolrClient> serverMap = new HashMap<>();
 		serverMap.put(dummyCollection, solrServer);
 		RequestHandlerConnection connection = new RequestHandlerConnection(serverMap);
 		Map<String, CacheData> data = connection.getData().get(dummyCollection);
@@ -73,11 +73,11 @@ public class RequestHandlerConnectionTestCase extends BaseTestCase {
 		assertEquals((long)-1, filterQueryData.getWarmupTime());
 	}
 	
-	private HttpSolrClient createMockSolrServer() throws MalformedURLException {
+	private SolrClient createMockSolrServer() throws MalformedURLException {
 		return this.createMockSolrServer("queryResultCache", "fieldCache", "documentCache", "fieldValueCache", "filterCache");
 	}
 	
-	 private HttpSolrClient createMockSolrServer(String... caches) throws MalformedURLException {
+	 private SolrClient createMockSolrServer(String... caches) throws MalformedURLException {
 	    SolrServerMock mock = new SolrServerMock();
 	    mock.setResponseToRequest("/admin/mbeans", this.createMBeansNamedList(caches));
 	    return mock;
@@ -164,8 +164,8 @@ public class RequestHandlerConnectionTestCase extends BaseTestCase {
 	}
 	
 	 public void testMissingCaches() throws MalformedURLException, StatisticConnectionException {
-	   HttpSolrClient solrServer = this.createMockSolrServer("filterCache");
-		Map<String, HttpSolrClient> serverMap = new HashMap<>();
+	   	SolrClient solrServer = this.createMockSolrServer("filterCache");
+		Map<String, SolrClient> serverMap = new HashMap<>();
 		serverMap.put(dummyCollection, solrServer);
 		RequestHandlerConnection connection = new RequestHandlerConnection(serverMap);
 		Map<String, CacheData> data = connection.getData().get(dummyCollection);

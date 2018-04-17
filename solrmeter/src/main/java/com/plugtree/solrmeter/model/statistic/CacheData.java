@@ -147,9 +147,7 @@ public class CacheData {
 			return false;
 		if (size != other.size)
 			return false;
-		if (warmupTime != other.warmupTime)
-			return false;
-		return true;
-	}
+        return warmupTime == other.warmupTime;
+    }
 	
 }

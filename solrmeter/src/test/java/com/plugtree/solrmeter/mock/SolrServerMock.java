@@ -22,15 +22,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrRequest;
 
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.util.NamedList;
 
-public class SolrServerMock extends HttpSolrClient {
+public class SolrServerMock extends SolrClient {
 	
 	private static final long serialVersionUID = 7266180569831920295L;
 
@@ -43,7 +43,7 @@ public class SolrServerMock extends HttpSolrClient {
 	private Map<String, NamedList<Object>> requestsResponses;
 	
 	public SolrServerMock() {
-		super("http://localhost");
+//		super("http://localhost");
 		addedDocuments = new LinkedList<>();
 		requestsResponses = new HashMap<>();
 	}
@@ -100,4 +100,8 @@ public class SolrServerMock extends HttpSolrClient {
 		requestsResponses.put(request, response);
 	}
 
+	@Override
+	public void close() throws IOException {
+
+	}
 }

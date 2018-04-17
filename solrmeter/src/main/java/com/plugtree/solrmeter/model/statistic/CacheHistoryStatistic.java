@@ -34,7 +34,6 @@ import com.plugtree.solrmeter.model.QueryStatistic;
 import com.plugtree.solrmeter.model.SolrMeterConfiguration;
 import com.plugtree.solrmeter.model.exception.QueryException;
 import com.plugtree.solrmeter.model.exception.StatisticConnectionException;
-import com.plugtree.solrmeter.view.statistic.CacheHistoryPanel;
 import com.plugtree.stressTestScope.StressTestScope;
 
 /**

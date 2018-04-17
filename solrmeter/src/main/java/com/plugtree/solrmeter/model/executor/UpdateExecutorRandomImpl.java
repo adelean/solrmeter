@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 
 import com.google.inject.Inject;
@@ -47,7 +47,7 @@ import com.plugtree.stressTestScope.StressTestScope;
 public class UpdateExecutorRandomImpl extends AbstractRandomExecutor implements UpdateExecutor {
 	
 	//TODO DI
-	private HttpSolrClient server;
+	private SolrClient server;
 	
 	private Integer numberOfDocumentsBeforeCommit;
 	
@@ -69,8 +69,8 @@ public class UpdateExecutorRandomImpl extends AbstractRandomExecutor implements 
 		this.documentExtractor = documentExtractor;
 		statistics = new LinkedList<UpdateStatistic>();
 		operationsPerSecond = Integer.parseInt(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.UPDATES_PER_SECOND));
-		autocommit = Boolean.valueOf(SolrMeterConfiguration.getProperty("solr.update.solrAutocommit", "false"));;
-		maxTimeBeforeCommit = Integer.valueOf(SolrMeterConfiguration.getProperty("solr.update.timeToCommit", "10000"));
+		autocommit = Boolean.valueOf(SolrMeterConfiguration.getProperty("solr.update.solrAutocommit", "false"));
+        maxTimeBeforeCommit = Integer.valueOf(SolrMeterConfiguration.getProperty("solr.update.timeToCommit", "10000"));
 		numberOfDocumentsBeforeCommit = Integer.valueOf(SolrMeterConfiguration.getProperty("solr.update.documentsToCommit", "100"));
 		super.prepare();
 	}
@@ -80,7 +80,7 @@ public class UpdateExecutorRandomImpl extends AbstractRandomExecutor implements 
 		statistics = new LinkedList<>();
 	}
 	
-	public synchronized HttpSolrClient getSolrServer() {
+	public synchronized SolrClient getSolrServer() {
 		if(server == null) {
 			server = super.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_ADD_URL));
 		}

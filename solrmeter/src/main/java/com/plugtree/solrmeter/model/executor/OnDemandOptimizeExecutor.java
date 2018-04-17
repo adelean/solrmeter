@@ -27,7 +27,8 @@ import com.plugtree.solrmeter.model.SolrMeterConfiguration;
 import com.plugtree.solrmeter.model.SolrServerRegistry;
 import com.plugtree.solrmeter.model.exception.OptimizeException;
 import com.plugtree.stressTestScope.StressTestScope;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.SolrClient;
+
 
 /**
  * Executes an optimize only when the "execute" method is invoked
@@ -42,7 +43,7 @@ public class OnDemandOptimizeExecutor implements OptimizeExecutor {
 	/**
 	 * The Solr Server were the optimize is going to run.
 	 */
-	protected HttpSolrClient server = null;
+	protected SolrClient server = null;
 	
 	/**
 	 * Indicates whether the index is being optimized or not at this time
@@ -58,9 +59,9 @@ public class OnDemandOptimizeExecutor implements OptimizeExecutor {
 		this(SolrServerRegistry.getSolrServer(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_ADD_URL)));
 	}
 	
-	public OnDemandOptimizeExecutor(HttpSolrClient server) {
+	public OnDemandOptimizeExecutor(SolrClient server) {
 		super();
-		optimizeObservers = new LinkedList<OptimizeStatistic>();
+		optimizeObservers = new LinkedList<>();
 		this.server = server;
 	}
 	

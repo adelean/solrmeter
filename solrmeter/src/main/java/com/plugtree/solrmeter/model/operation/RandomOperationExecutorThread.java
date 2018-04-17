@@ -15,7 +15,6 @@
  */
 package com.plugtree.solrmeter.model.operation;
 
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.Logger;

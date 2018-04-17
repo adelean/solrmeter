@@ -164,11 +164,8 @@ public class SolrMeterMenuController {
 		if(updateExecutor.isRunning()) {
 			return false;
 		}
-		if(optimizeExecutor.isOptimizing()) {
-			return false;
-		}
-		return true;
-	}
+        return !optimizeExecutor.isOptimizing();
+    }
 
 
 	public void onRestartMenu() {

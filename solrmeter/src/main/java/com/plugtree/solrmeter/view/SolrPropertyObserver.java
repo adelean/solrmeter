@@ -17,6 +17,6 @@ package com.plugtree.solrmeter.view;
 
 public interface SolrPropertyObserver {
 	
-	public void solrPropertyChanged(String prop, String value);
+	void solrPropertyChanged(String prop, String value);
 
 }

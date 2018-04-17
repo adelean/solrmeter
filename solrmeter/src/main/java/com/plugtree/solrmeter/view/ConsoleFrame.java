@@ -21,7 +21,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.BoxLayout;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -102,7 +101,7 @@ public class ConsoleFrame extends JFrame {
 		this.getContentPane().removeAll();
 		this.initGUI();
 		this.getContentPane().repaint();
-		((JComponent)this.getContentPane()).revalidate();
+		this.getContentPane().revalidate();
 	}
 	
 	@Inject

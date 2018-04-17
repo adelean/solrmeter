@@ -190,7 +190,7 @@ public class QueryTimeHistoryTestCase extends BaseTestCase {
 			BufferedReader reader = new BufferedReader(new FileReader(new File("queryTime.csv")));
 			for(int i = 0; i <= 600; i+=10) {
 				if(i%60==0) {
-					assertEquals("Error with i: " + i, i + "sec - " + (i+10) + "sec;" + ((int)i/60), reader.readLine());
+					assertEquals("Error with i: " + i, i + "sec - " + (i+10) + "sec;" + (i /60), reader.readLine());
 				}else {
 					assertEquals("Error with i: " + i, i + "sec - " + (i+10) + "sec;0", reader.readLine());
 				}

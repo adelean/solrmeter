@@ -24,7 +24,7 @@ import com.plugtree.solrmeter.model.FileUtils;
 import com.plugtree.solrmeter.model.SolrMeterConfiguration;
 import com.plugtree.solrmeter.model.SolrServerRegistry;
 import com.plugtree.solrmeter.model.operation.RandomOperationExecutorThread;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.SolrClient;
 
 /**
  * Base class for operation executors that run multiple threads.
@@ -157,7 +157,7 @@ public abstract class AbstractRandomExecutor {
     		}
 		}
 		stopStatistics();
-		threads.clear();;
+		threads.clear();
 		prepared = false;
 	}
 
@@ -169,7 +169,7 @@ public abstract class AbstractRandomExecutor {
 	 * @return Return the Solr Server instance for the url. There is only one 
 	 * Solr Server for every difFerent url
 	 */
-	public HttpSolrClient getSolrServer(String url) {
+	public SolrClient getSolrServer(String url) {
 		return SolrServerRegistry.getSolrServer(url);
 	}
 

@@ -52,10 +52,10 @@ public class ComplexQueryGenerator implements QueryGenerator {
   
   private final QueryExtractor extraParameterExtractor;
   
-  protected final Map<String, String> extraParameters = new HashMap<String, String>();;
-  
-  
-  @Inject
+  protected final Map<String, String> extraParameters = new HashMap<String, String>();
+
+
+    @Inject
   public ComplexQueryGenerator(FieldExtractor facetFieldExtractor,
       @Named("filterQueryExtractor") QueryExtractor filterQueryExtractor,
       @Named("queryExtractor") QueryExtractor queryExtractor,

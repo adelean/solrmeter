@@ -36,7 +36,7 @@ public class ClassPathHacker {
 		try {
 			Method method = sysclass.getDeclaredMethod("addURL",parameters);
 			method.setAccessible(true);
-			method.invoke(sysloader,new Object[]{ u });
+			method.invoke(sysloader, u);
 		} catch (Throwable t) {
 			throw new IOException("Error, could not add URL to system classloader");
 		}//end try catch

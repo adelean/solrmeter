@@ -75,6 +75,6 @@ public class ChartUtils {
 				return newUnit;
 			}
 		}
-	};
+	}
 
 }

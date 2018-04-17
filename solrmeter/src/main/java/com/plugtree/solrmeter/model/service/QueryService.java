@@ -26,15 +26,15 @@ import com.plugtree.solrmeter.model.exception.QueryException;
  */
 public interface QueryService {
 	
-	public QueryResponse executeQuery(String q, 
-			String fq, 
-			String qt, 
-			boolean highlight, 
-			String facetFields, 
-			String sort, 
-			String sortOrder,
-			Integer rows,
-			Integer start,
-			String otherParams) throws QueryException;
+	QueryResponse executeQuery(String q,
+                               String fq,
+                               String qt,
+                               boolean highlight,
+                               String facetFields,
+                               String sort,
+                               String sortOrder,
+                               Integer rows,
+                               Integer start,
+                               String otherParams) throws QueryException;
 
 }

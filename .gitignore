@@ -12,3 +12,4 @@ solrmeter.log
 solrmeter/solrmeter.log
 .idea/
 *.iml
+SolrMeterConfigurationTestCase-testExport
