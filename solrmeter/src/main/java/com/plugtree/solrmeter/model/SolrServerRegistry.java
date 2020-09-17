@@ -48,12 +48,15 @@ public class SolrServerRegistry {
             logger.info("Connecting CloudSolrClient to ZK: " + url);
             CloudSolrClient solrClient = new CloudSolrClient.Builder().withZkHost(url).build();
 
-            HttpClient httpClient = solrClient.getLbClient().getHttpClient();
-            HttpClientUtil.setSoTimeout(httpClient, Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.soTimeout", "60000")));
-            HttpClientUtil.setConnectionTimeout(httpClient, Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.connectionTimeout", "60000")));
-            HttpClientUtil.setMaxConnectionsPerHost(httpClient, Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.defaultMaxConnectionsPerHost", "100000")));
-            HttpClientUtil.setMaxConnections(httpClient, Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.maxTotalConnections", "1000000")));
-            HttpClientUtil.setFollowRedirects(httpClient, Boolean.parseBoolean(SolrMeterConfiguration.getProperty("solr.server.configuration.followRedirect", "false"))); // defaults to false
+            HttpClient httpClient = solrClient
+                    .getLbClient()
+                    .getHttpClient();
+
+//            HttpClientUtil.setSoTimeout(httpClient, Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.soTimeout", "60000")));
+//            HttpClientUtil.setConnectionTimeout(httpClient, Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.connectionTimeout", "60000")));
+//            HttpClientUtil.setMaxConnectionsPerHost(httpClient, Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.defaultMaxConnectionsPerHost", "100000")));
+//            HttpClientUtil.setMaxConnections(httpClient, Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.maxTotalConnections", "1000000")));
+//            HttpClientUtil.setFollowRedirects(httpClient, Boolean.parseBoolean(SolrMeterConfiguration.getProperty("solr.server.configuration.followRedirect", "false"))); // defaults to false
 
             setAuthentication(solrClient.getLbClient().getHttpClient());
             solrClient.setDefaultCollection(SolrMeterConfiguration.getProperty(SolrMeterConfiguration.SOLR_CLOUD_COLLECTION, "techproducts"));
@@ -67,10 +70,10 @@ public class SolrServerRegistry {
 
             solrClient.setSoTimeout(Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.soTimeout", "60000"))); // socket read timeout
             solrClient.setConnectionTimeout(Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.connectionTimeout", "60000")));
-            solrClient.setDefaultMaxConnectionsPerHost(Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.defaultMaxConnectionsPerHost", "100000")));
-            solrClient.setMaxTotalConnections(Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.maxTotalConnections", "1000000")));
+//            solrClient.setDefaultMaxConnectionsPerHost(Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.defaultMaxConnectionsPerHost", "100000")));
+//            solrClient.setMaxTotalConnections(Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.maxTotalConnections", "1000000")));
             solrClient.setFollowRedirects(Boolean.parseBoolean(SolrMeterConfiguration.getProperty("solr.server.configuration.followRedirect", "false"))); // defaults to false
-            solrClient.setAllowCompression(Boolean.parseBoolean(SolrMeterConfiguration.getProperty("solr.server.configuration.allowCompression", "true")));
+//            solrClient.setAllowCompression(Boolean.parseBoolean(SolrMeterConfiguration.getProperty("solr.server.configuration.allowCompression", "true")));
 //			solrClient.setMaxRetries(Integer.parseInt(SolrMeterConfiguration.getProperty("solr.server.configuration.maxRetries", "1"))); // defaults to 0. > 1 not recommended.
             setAuthenticationHttpSolrClient(solrClient);
             servers.put(url, solrClient);
